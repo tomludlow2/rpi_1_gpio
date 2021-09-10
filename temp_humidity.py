@@ -5,7 +5,7 @@ import time
 DHTPIN = 14
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(false)
+GPIO.setwarnings(False)
 
 MAX_UNCHANGE_COUNT = 100
 
@@ -73,7 +73,7 @@ def read_dht11_dat():
             else:
                 continue
     if len(lengths) != 40:
-        print "Data not good, skip"
+        #print "Data not good, skip 1"
         return False
 
     shortest_pull_up = min(lengths)
@@ -88,7 +88,7 @@ def read_dht11_dat():
         if length > halfway:
             bit = 1
         bits.append(bit)
-    print "bits: %s, length: %d" % (bits, len(bits))
+    #print "bits: %s, length: %d" % (bits, len(bits))
     for i in range(0, len(bits)):
         byte = byte << 1
         if (bits[i]):
@@ -101,7 +101,7 @@ def read_dht11_dat():
     print the_bytes
     checksum = (the_bytes[0] + the_bytes[1] + the_bytes[2] + the_bytes[3]) & 0xFF
     if the_bytes[4] != checksum:
-        print "Data not good, skip"
+        #print "Data not good, skip 2"
         return False
 
     return the_bytes[0], the_bytes[2]
