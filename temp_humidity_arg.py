@@ -110,16 +110,16 @@ def main():
     #Args stored in sys.argv ['filename', 'arg1' 'arg2']
     mode = 1
     print sys.argv
-    if len(sys.argv) == 2:
-        #User has specified a value
+    if len(sys.argv) > 1 :
+        #User has specified values
         num = int(sys.argv[1])
-    elif len(sys.argv) == 3:
-        num = int(sys.argv[1])
-        quiet = sys.argv[2]
+        interval = float(sys.argv[2])
+        quiet = sys.argv[3]
         if quiet == "q":
             mode = 0
     else:
         num = 3
+        interval = 0.2
 
     if mode == 1:
         print "Raspberry Pi Temperature and Humidity Program\n"
@@ -135,6 +135,7 @@ def main():
             if mode == 1:
                 print "Reading: Humidity: %s %%,  Temperature: %s C" % (humidity, temperature)
             i =  i+1
+            time.sleep(interval)
     
     temp_average = round(sum(temp_reads) / len(temp_reads), 1)
     humidity_average = round(sum(humidity_reads) / len(humidity_reads) ,1)
