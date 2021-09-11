@@ -108,20 +108,21 @@ def main():
 
     #Get args:
     #Args stored in sys.argv ['filename', 'arg1' 'arg2']
-    mode = 1
-    print sys.argv
+    mode = "l"
     if len(sys.argv) > 1 :
         #User has specified values
         num = int(sys.argv[1])
         interval = float(sys.argv[2])
-        quiet = sys.argv[3]
-        if quiet == "q":
-            mode = 0
+        m = sys.argv[3]
+        if( m == "q" or m == "l" or m == "j" ):
+            mode = m
+        else:
+            mode = "l"
     else:
         num = 3
         interval = 0.2
 
-    if mode == 1:
+    if mode == "l":
         print "Raspberry Pi Temperature and Humidity Program\n"
     i = 0
     temp_reads = []
@@ -132,14 +133,14 @@ def main():
             humidity, temperature = result
             temp_reads.append(temperature)
             humidity_reads.append(humidity)
-            if mode == 1:
+            if mode == "l":
                 print "Reading: Humidity: %s %%,  Temperature: %s C" % (humidity, temperature)
             i =  i+1
             time.sleep(interval)
     
     temp_average = round(sum(temp_reads) / len(temp_reads), 1)
     humidity_average = round(sum(humidity_reads) / len(humidity_reads) ,1)
-    if mode == 1:
+    if mode == "l":
         print "Success: Completed Data Acquisition"
         print "Temperature Readings: "
         print temp_reads
@@ -148,9 +149,19 @@ def main():
         print "Humuditity Readings: "
         print humidity_reads
         print( "Average Humidity: ", humidity_average, "%");
-    else:
+    elif mode == "q":
         op = str(temp_average) + "," + str(humidity_average)
         print op
+    elif mode == "j":
+        import json
+        op = {
+            "temperature_readings":temp_reads,
+            "humidity_readings":humidity_reads,
+            "temperature_average":temp_average,
+            "humidity_average":humidity_average
+        }
+        json_op = json.dumps(op, indent=4)
+        print json_op
 
 def destroy():
     GPIO.cleanup()
