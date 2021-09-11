@@ -14,6 +14,11 @@ Usage (CLI 1):
 - Reads the values back and the average
 
 Usage (Arguments):
-- python temp_humidity_arg.py x q 
-- Where x is the number of readings you want
-- Include letter q if you just want the avg temp, and avg humid as csv
+- python temp_humidity_arg.py a b c
+- Where a is the number of readings you want
+- Where b is the number of seconds between readings
+-   Note this is a sleep timer, but there the sensor may make this longer than this
+- Where c is the mode
+-   q = quiet - just outputs a csv of temp,humidity
+-   l = loud - outputs a full description
+-   j = json - outputs the data in a json string
