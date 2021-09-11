@@ -108,13 +108,21 @@ def main():
 
     #Get args:
     #Args stored in sys.argv ['filename', 'arg1' 'arg2']
-    if len(sys.argv) > 1:
+    mode = 1
+    print sys.argv
+    if len(sys.argv) == 2:
         #User has specified a value
         num = int(sys.argv[1])
+    elif len(sys.argv) == 3:
+        num = int(sys.argv[1])
+        quiet = sys.argv[2]
+        if quiet == "q":
+            mode = 0
     else:
         num = 3
 
-    print "Raspberry Pi Temperature and Humidity Program\n"
+    if mode == 1:
+        print "Raspberry Pi Temperature and Humidity Program\n"
     i = 0
     temp_reads = []
     humidity_reads = []
@@ -124,19 +132,24 @@ def main():
             humidity, temperature = result
             temp_reads.append(temperature)
             humidity_reads.append(humidity)
-            print "Reading: Humidity: %s %%,  Temperature: %s C" % (humidity, temperature)
+            if mode == 1:
+                print "Reading: Humidity: %s %%,  Temperature: %s C" % (humidity, temperature)
             i =  i+1
     
     temp_average = round(sum(temp_reads) / len(temp_reads), 1)
     humidity_average = round(sum(humidity_reads) / len(humidity_reads) ,1)
-    print "Success: Completed Data Acquisition"
-    print "Temperature Readings: "
-    print temp_reads
-    print( "Average Temp: ", temp_average, "deg C")
+    if mode == 1:
+        print "Success: Completed Data Acquisition"
+        print "Temperature Readings: "
+        print temp_reads
+        print( "Average Temp: ", temp_average, "deg C")
 
-    print "Humuditity Readings: "
-    print humidity_reads
-    print( "Average Humidity: ", humidity_average, "%");
+        print "Humuditity Readings: "
+        print humidity_reads
+        print( "Average Humidity: ", humidity_average, "%");
+    else:
+        op = str(temp_average) + "," + str(humidity_average)
+        print op
 
 def destroy():
     GPIO.cleanup()
