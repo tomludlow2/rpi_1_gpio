@@ -14,3 +14,8 @@ Usage (CLI 1):
 > Asks how many readings you want to take
 > 
 > Reads the values back and the average
+
+Usage (Arguments):
+> python temp_humidity_arg.py x q
+> Where x is the number of readings you want
+> Include letter q if you just want the avg temp, and avg humid as csv
