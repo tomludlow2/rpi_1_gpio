@@ -10,5 +10,7 @@ Setup:
 
 Usage (CLI 1):
 > python temp_humdity.py
+> 
 > Asks how many readings you want to take
+> 
 > Reads the values back and the average
