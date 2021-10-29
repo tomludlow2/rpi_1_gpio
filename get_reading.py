@@ -116,8 +116,8 @@ class rpi_gpio_class:
             result = self.read_dht11_dat()
             if result:
                 humidity, temperature = result
-                temp['temperature'] = temperature
-                humid['humidity'] = humidity
+                temp['dht11_temperature'] = temperature
+                humid['dht11_humidity'] = humidity
                 print "Reading: Humidity: %s %%,  Temperature: %s C" % (humidity, temperature)
                 i =  i+1        
         return [temp,humid]
